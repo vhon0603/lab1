@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Activity Alarm Clock </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/tpicker.css">
+  <script type="text/javascript" src="lib/tpicker.js"></script>
+</head>
+
+<center onLoad="checkSessionValues();displayWarning()">
+
+<!-- menu / navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Activity Alarm Clock</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about.html">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="help.html">Help</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- show alert if passcode not set -->
+<div id = 'myAlert'></div>
+
+<!--
+<div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;">
+  <strong>Hold up MFs!</strong> You should set your failsafe password below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+-->
+
+<!-- ALARM SECTION  -->
+<div id = "alarm" class = "titles">
+  <h2> set alarm </h2>
+</div>
+
+<!-- time picker -->
+<div class = "container">
+  <div class="row">
+    <div class="offset-4 col-md-5">
+      <div class="input-group">
+        <div class="col-md-4" style="padding-right:0px;">
+          <input id="timepkr" class="form-control" placeholder="HH:MM" />
+        </div>
+          <div class="input-group-append">
+            <button id="timePickerBtn" class="btn btn-primary" type="button" onclick="dynamicStyle(); showpickers('timepkr',12);" style="width:40px;"><i class="fa fa-clock-o"></i>
+            <!-- toggle -->
+          </div>
+          <label class="switch">
+            <input type="checkbox" onclick=updateToggle()>
+            <span class="slider round"></span>
+          </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timepicker"></div>
+
+
+<!-- DIFFICULTY SECTION  -->
+<div id = "difficulty" class = "titles" style="margin-top: 10px;">
+<h2> difficulty level </h2>
+</div>
+
+<div>
+  <div id = "btn" class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active">
+      <input type="radio" onclick=updateLvl1() name="options" id="option1" autocomplete="off" checked> Easy
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" onclick=updateLvl2() name="options" id="option2" autocomplete="off"> Medium
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" onclick=updateLvl3() name="options" id="option3" autocomplete="off"> Hard
+    </label>
+  </div>
+</div>
+
+<!-- FAILSAFE PASSCODE SECTION -->
+<p> </p>
+<div class="alert alert-info" role="alert">Set Failsafe Password</div>
+<div>Your password must be 4 numbers along. Remember to click save!</div>
+
+<div class="btn-group-vertical ml-4 mt-4" style="">
+    <div class="calculator">
+        <input class="text-center form-control-lg mb-2" id="password" readonly="true" >
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(1)">1</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(2)">2</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(3)">3</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(4)">4</button>
+
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(5)">5</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(6)">6</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(7)">7</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(8)">8</button>
+
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(9)">9</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(10)">10</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(11)">11</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(12)">12</button>
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(13)">13</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(14)">14</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(15)">15</button>
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="checkPassword(16)">16</button>
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary py-3" onclick="clearNumber()">Clear</button>
+        <button type="button" class="btn btn-primary py-3" onclick="savePassword()">Save</button>
+    </div>
+</div>
+
+
+<script>
+
+  /**
+   *
+   */
+  function displayWarning() {
+    if (sessionStorage.getItem("passcodeSet") == null) {
+      console.log('here');
+      document.getElementById('myAlert').innerHTML = '<div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;"><strong>Hold up MFs!</strong> You should set your failsafe password below.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+    }
+  }
+
+  /**
+   * update toggle status
+   */
+  function updateToggle() {
+    // if block: first time toggling: alarm turned on
+    if (sessionStorage.getItem("alarmOn") == null) {
+      sessionStorage.setItem("alarmOn", "true");
+      console.log("alarmOn initialized in sessionStorage");
+      console.log("alarmOn: " + sessionStorage.getItem("alarmOn"));
+
+    } else {
+
+      if (sessionStorage.getItem("alarmOn").localeCompare("false") == 0 ) {
+        sessionStorage.setItem("alarmOn", "true");
+        console.log("alarmOn: " + sessionStorage.getItem("alarmOn"));
+      } else {
+        sessionStorage.setItem("alarmOn", "false");
+        console.log("alarmOn: " + sessionStorage.getItem("alarmOn"));
+      } // end inner if else block
+
+    } // end outer if else block
+  }
+
+  function dynamicStyle() {
+    // if block: first time extending margin, not added to session yet
+    if (sessionStorage.getItem("marginExtended") == null) {
+      sessionStorage.setItem("marginExtended", "true");
+      document.getElementById("difficulty").style.marginTop = "180px";
+    } else {
+
+      if (sessionStorage.getItem("marginExtended").localeCompare("true") == 0) {
+        // margin extended rn, change to collapsed
+        sessionStorage.setItem("marginExtended", "false");
+        document.getElementById("difficulty").style.marginTop = "10px";
+      } else {
+        // margin collapsed rn, change to extended
+        sessionStorage.setItem("marginExtended", "true");
+        document.getElementById("difficulty").style.marginTop = "180px";
+      } // end inner if else blcok
+
+    } // end outer if else block
+  }
+
+  /**
+   * display values of sessionStorage items in console
+   */
+   function checkSessionValues() {
+      console.log("checking session values:")
+      console.log("    alarmOn:        " + sessionStorage.getItem("alarmOn"));
+      console.log("    passcodeSet:    " + sessionStorage.getItem("passcodeSet"));
+      console.log("    passcode:       " + sessionStorage.getItem("passcode"));
+      console.log("    level:          " + sessionStorage.getItem("level"));
+      console.log("    marginExtended: " + sessionStorage.getItem("marginExtended"));
+      console.log("");
+   }
+
+  /**
+   * functions for updating difficulty level on click
+   */
+
+  function updateLvl1() {
+    var difficulty = "easy";
+    sessionStorage.setItem("level", difficulty);
+    console.log(difficulty);
+  }
+
+  function updateLvl2() {
+    var difficulty = "medium";
+    sessionStorage.setItem("level", difficulty);
+     console.log(difficulty);
+  }
+
+  function updateLvl3() {
+    var difficulty = "hard";
+    sessionStorage.setItem("level", difficulty);
+    console.log(difficulty);
+  }
+
+  /**
+   *
+   */
+
+  function parseTimeHolder() {
+    var timeHolder = "HH:MM"
+    if (sessionStorage.getItem("time") == null) {
+      console.log("NOTHING");
+    } else {
+      timeHolder = sessionStorage.getItem("time");
+      timeSplit = timeHolder.split(":");
+      var hr = timeSplit[0];
+      var min = timeSplit[1];
+      var ampm = timeSplit[2];
+
+      if (ampm == 0) {
+        ampm = "am";
+      } else {
+        ampm = "pm";
+      }
+
+      if (hr < 10) {
+        hr = "0" + hr;
+      }
+      if (min < 10) {
+        min = "0" + min;
+      }
+
+      timeHolder = hr + ":" + min + " " + ampm;
+      document.getElementById('timeHolder').value = timeHolder;
+    }
+  }
+
+  /**
+   * functions for setting passcode
+   */
+
+  function checkPassword(param1) {
+    var numberArray = document.getElementById('password').value.split(' ');
+
+    if (numberArray.length > 4){
+      alert("Uh oh! Length of password must be 4 numbers.");
+    }
+
+    document.getElementById('password').value = document.getElementById('password').value + param1 + " ";
+  }
+
+  //save password only if 4 elements (length 5)
+  function savePassword(){
+      var numberArray = document.getElementById('password').value.split(' ');
+      if (numberArray.length != 5){
+        alert("Uh oh! Length of password must be 4 numbers.");
+      }
+
+      if (numberArray.length == 5) {
+        numberArray.pop(); // remove extra comma
+        sessionStorage.setItem("passcode", numberArray);
+        sessionStorage.setItem("passcodeSet", "true");
+        console.log("passcode stored: " + sessionStorage.getItem("passcode"));
+        console.log("passcodeSet stored: " + sessionStorage.getItem("passcodeSet"));
+        document.getElementById('myAlert').innerHTML = "";
+      }
+
+  }
+
+  function clearNumber(){
+      document.getElementById('password').value = "";
+  }
+</script>
+
+</center>
+</html>
